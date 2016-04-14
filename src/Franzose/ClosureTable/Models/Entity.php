@@ -452,6 +452,12 @@ class Entity extends Eloquent implements EntityInterface
         return $this->joinClosureBy('descendant')->get($columns);
     }
 
+    //duplicate of getDescendants() without the ->get() at the end.
+    public function collectDescendants()
+    {
+        return $this->joinClosureBy('descendant');
+    }
+
     /**
      * Retrieves tree structured descendants of a model.
      *
