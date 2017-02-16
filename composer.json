@@ -9,10 +9,6 @@
             "email": "iwanow.jan@gmail.com",
             "homepage": "http://janiwanow.com",
             "role": "Developer"
-        },
-        {
-          "name": "Ryan Brereton-Canham",
-          "email": "ryzaar@hotmail.com"
         }
     ],
     "require": {
