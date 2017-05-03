@@ -35,5 +35,11 @@
     "config": {
         "preferred-install": "dist"
     },
+    "extra": {
+      "branch-alias": {
+        "dev-release/0.0": "0.0.x-dev",
+        "dev-release/0.1": "0.1.x-dev"
+      }
+    },
     "minimum-stability": "dev"
 }
