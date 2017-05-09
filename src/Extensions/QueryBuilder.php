@@ -1,12 +1,11 @@
 <?php
-namespace Franzose\ClosureTable\Extensions;
+
+namespace Soda\ClosureTable\Extensions;
 
 use Illuminate\Database\Query\Builder as BaseQueryBuilder;
 
 /**
  * Extended Query Builder.
- *
- * @package Franzose\ClosureTable\Extensions
  */
 class QueryBuilder extends BaseQueryBuilder
 {

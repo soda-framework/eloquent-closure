@@ -1,9 +1,9 @@
 <?php
-namespace Franzose\ClosureTable\Tests;
 
-use Franzose\ClosureTable\Extensions\Collection;
-use Franzose\ClosureTable\Models\Entity;
-use Mockery;
+namespace Soda\ClosureTable\Tests;
+
+use Soda\ClosureTable\Models\Entity;
+use Soda\ClosureTable\Extensions\Collection;
 
 class CollectionTestCase extends BaseTestCase
 {
@@ -61,7 +61,7 @@ class CollectionTestCase extends BaseTestCase
 
         $children = $collection->getChildrenOf(0);
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Extensions\Collection', $children);
+        $this->assertInstanceOf('Soda\ClosureTable\Extensions\Collection', $children);
         $this->assertCount(3, $children);
     }
 }

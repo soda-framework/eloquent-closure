@@ -1,7 +1,8 @@
 <?php
-namespace Franzose\ClosureTable\Tests\Models;
 
-use Franzose\ClosureTable\Models\Entity;
+namespace Soda\ClosureTable\Tests\Models;
+
+use Soda\ClosureTable\Models\Entity;
 
 class Page extends Entity
 {

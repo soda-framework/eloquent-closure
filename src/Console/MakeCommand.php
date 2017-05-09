@@ -1,18 +1,17 @@
 <?php
-namespace Franzose\ClosureTable\Console;
 
-use Illuminate\Console\DetectsApplicationNamespace;
+namespace Soda\ClosureTable\Console;
+
 use Illuminate\Console\Command;
 use Illuminate\Support\Composer;
+use Soda\ClosureTable\Generators\Model;
+use Soda\ClosureTable\Generators\Migration;
+use Soda\ClosureTable\Extensions\Str as ExtStr;
 use Symfony\Component\Console\Input\InputOption;
-use Franzose\ClosureTable\Generators\Migration;
-use Franzose\ClosureTable\Generators\Model;
-use Franzose\ClosureTable\Extensions\Str as ExtStr;
+use Illuminate\Console\DetectsApplicationNamespace;
 
 /**
  * ClosureTable scaffolding command, created migrations and models.
- *
- * @package Franzose\ClosureTable\Console
  */
 class MakeCommand extends Command
 {
@@ -35,14 +34,14 @@ class MakeCommand extends Command
     /**
      * Migrations generator instance.
      *
-     * @var \Franzose\ClosureTable\Generators\Migration
+     * @var \Soda\ClosureTable\Generators\Migration
      */
     protected $migrator;
 
     /**
      * Models generator instance.
      *
-     * @var \Franzose\ClosureTable\Generators\Model
+     * @var \Soda\ClosureTable\Generators\Model
      */
     protected $modeler;
 
@@ -155,8 +154,8 @@ class MakeCommand extends Command
         $this->options[$options[0][0]] = $input[0] ?: rtrim($this->getAppNamespace(), '\\');
         $this->options[$options[1][0]] = substr($input[1], $lastnsdelim);
         $this->options[$options[2][0]] = $input[2] ?: ExtStr::tableize($input[1]);
-        $this->options[$options[3][0]] = $input[3] ?: $this->options[$options[1][0]] . 'Closure';
-        $this->options[$options[4][0]] = $input[4] ?: ExtStr::tableize($input[1] . 'Closure');
+        $this->options[$options[3][0]] = $input[3] ?: $this->options[$options[1][0]].'Closure';
+        $this->options[$options[4][0]] = $input[4] ?: ExtStr::tableize($input[1].'Closure');
         $this->options[$options[5][0]] = $input[5] ? $input[5] : './app';
         $this->options[$options[6][0]] = $input[6] ? $input[6] : './database/migrations';
         $this->options[$options[7][0]] = $input[7] ?: false;

@@ -1,16 +1,16 @@
 <?php
-namespace Franzose\ClosureTable\Tests;
+
+namespace Soda\ClosureTable\Tests;
 
 use DB;
 use Event;
-use Orchestra\Testbench\TestCase;
 use Mockery;
-use Franzose\ClosureTable\Models\Entity;
 use Way\Tests\ModelHelpers;
+use Orchestra\Testbench\TestCase;
+use Soda\ClosureTable\Models\Entity;
 
 /**
- * Class BaseTestCase
- * @package Franzose\ClosureTable\Tests
+ * Class BaseTestCase.
  */
 abstract class BaseTestCase extends TestCase
 {
@@ -23,10 +23,10 @@ abstract class BaseTestCase extends TestCase
     {
         parent::setUp();
 
-        $this->app->bind('Franzose\ClosureTable\Contracts\EntityInterface', 'Franzose\ClosureTable\Models\Entity');
-        $this->app->bind('Franzose\ClosureTable\Contracts\ClosureTableInterface', 'Franzose\ClosureTable\Models\ClosureTable');
+        $this->app->bind('Soda\ClosureTable\Contracts\EntityInterface', 'Soda\ClosureTable\Models\Entity');
+        $this->app->bind('Soda\ClosureTable\Contracts\ClosureTableInterface', 'Soda\ClosureTable\Models\ClosureTable');
 
-        if (!static::$sqlite_in_memory) {
+        if (! static::$sqlite_in_memory) {
             DB::statement('DROP TABLE IF EXISTS entities_closure');
             DB::statement('DROP TABLE IF EXISTS entities;');
             DB::statement('DROP TABLE IF EXISTS migrations');
@@ -35,19 +35,19 @@ abstract class BaseTestCase extends TestCase
         $artisan = $this->app->make('Illuminate\Contracts\Console\Kernel');
         $artisan->call('migrate', [
             '--database' => 'closuretable',
-            '--path' => '../tests/migrations'
+            '--path'     => '../tests/migrations',
         ]);
 
         $artisan->call('db:seed', [
-            '--class' => 'Franzose\ClosureTable\Tests\Seeds\EntitiesSeeder'
+            '--class' => 'Soda\ClosureTable\Tests\Seeds\EntitiesSeeder',
         ]);
 
         if (static::$debug) {
             Entity::$debug = true;
             Event::listen('illuminate.query', function ($sql, $bindings, $time) {
-                $sql = str_replace(array('%', '?'), array('%%', '%s'), $sql);
+                $sql = str_replace(['%', '?'], ['%%', '%s'], $sql);
                 $full_sql = vsprintf($sql, $bindings);
-                echo PHP_EOL . '- BEGIN QUERY -' . PHP_EOL . $full_sql . PHP_EOL . '- END QUERY -' . PHP_EOL;
+                echo PHP_EOL.'- BEGIN QUERY -'.PHP_EOL.$full_sql.PHP_EOL.'- END QUERY -'.PHP_EOL;
             });
         }
     }
@@ -63,25 +63,25 @@ abstract class BaseTestCase extends TestCase
     protected function getEnvironmentSetUp($app)
     {
         // reset base path to point to our package's src directory
-        $app['path.base'] = __DIR__ . '/../src';
+        $app['path.base'] = __DIR__.'/../src';
 
         $app['config']->set('database.default', 'closuretable');
 
         if (static::$sqlite_in_memory) {
             $options = [
-                'driver' => 'sqlite',
+                'driver'   => 'sqlite',
                 'database' => ':memory:',
-                'prefix' => '',
+                'prefix'   => '',
             ];
         } else {
             $options = [
-                'driver' => 'mysql',
-                'host' => 'localhost',
-                'database' => 'closuretabletest',
-                'username' => 'root',
-                'password' => '',
-                'prefix' => '',
-                'charset' => 'utf8',
+                'driver'    => 'mysql',
+                'host'      => 'localhost',
+                'database'  => 'closuretabletest',
+                'username'  => 'root',
+                'password'  => '',
+                'prefix'    => '',
+                'charset'   => 'utf8',
                 'collation' => 'utf8_unicode_ci',
             ];
         }

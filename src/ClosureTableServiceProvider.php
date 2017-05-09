@@ -1,22 +1,17 @@
 <?php
-namespace Franzose\ClosureTable;
+
+namespace Soda\ClosureTable;
 
 use Illuminate\Support\ServiceProvider;
-use Franzose\ClosureTable\Console\ClosureTableCommand;
-use Franzose\ClosureTable\Console\MakeCommand;
-use Franzose\ClosureTable\Generators\Migration as Migrator;
-use Franzose\ClosureTable\Generators\Model as Modeler;
+use Soda\ClosureTable\Console\ClosureTableCommand;
 
 /**
- * ClosureTable service provider
- *
- * @package Franzose\ClosureTable
+ * ClosureTable service provider.
  */
 class ClosureTableServiceProvider extends ServiceProvider
 {
-
     /**
-     * Current library version
+     * Current library version.
      */
     const VERSION = 4;
 
@@ -49,7 +44,7 @@ class ClosureTableServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('command.closuretable.make', function ($app) {
-            return $app['Franzose\ClosureTable\Console\MakeCommand'];
+            return $app['Soda\ClosureTable\Console\MakeCommand'];
         });
 
         $this->commands('command.closuretable', 'command.closuretable.make');
@@ -62,7 +57,6 @@ class ClosureTableServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array();
+        return [];
     }
-
 }

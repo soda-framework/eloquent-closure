@@ -1,13 +1,12 @@
 <?php
-namespace Franzose\ClosureTable\Console;
 
-use Franzose\ClosureTable\ClosureTableServiceProvider as CT;
+namespace Soda\ClosureTable\Console;
+
 use Illuminate\Console\Command;
+use Soda\ClosureTable\ClosureTableServiceProvider as CT;
 
 /**
  * Basic ClosureTable command, outputs information about the library in short.
- *
- * @package Franzose\ClosureTable\Console
  */
 class ClosureTableCommand extends Command
 {
@@ -32,7 +31,7 @@ class ClosureTableCommand extends Command
      */
     public function fire()
     {
-        $this->info('ClosureTable v' . CT::VERSION);
+        $this->info('ClosureTable v'.CT::VERSION);
         $this->line('Closure Table database design pattern implementation for Laravel framework.');
         $this->comment('Copyright (c) 2013-2014 Jan Iwanow');
     }

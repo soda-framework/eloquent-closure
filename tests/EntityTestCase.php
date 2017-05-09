@@ -1,11 +1,12 @@
 <?php
-namespace Franzose\ClosureTable\Tests;
+
+namespace Soda\ClosureTable\Tests;
 
 use DB;
-use Franzose\ClosureTable\Models\ClosureTable;
 use Mockery;
-use Franzose\ClosureTable\Models\Entity;
-use Franzose\ClosureTable\Tests\Models\Page;
+use Soda\ClosureTable\Models\Entity;
+use Soda\ClosureTable\Tests\Models\Page;
+use Soda\ClosureTable\Models\ClosureTable;
 
 class EntityTestCase extends BaseTestCase
 {
@@ -83,10 +84,10 @@ class EntityTestCase extends BaseTestCase
 
     public function testCreate()
     {
-        DB::statement("SET foreign_key_checks=0");
+        DB::statement('SET foreign_key_checks=0');
         ClosureTable::truncate();
         Entity::truncate();
-        DB::statement("SET foreign_key_checks=1");
+        DB::statement('SET foreign_key_checks=1');
 
         $entity1 = new Entity;
         $entity1->save();
@@ -226,7 +227,7 @@ class EntityTestCase extends BaseTestCase
         $entity = Entity::find(10);
         $parent = $entity->getParent();
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Models\Entity', $parent);
+        $this->assertInstanceOf('Soda\ClosureTable\Models\Entity', $parent);
         $this->assertEquals(9, $parent->getKey());
     }
 
@@ -236,7 +237,7 @@ class EntityTestCase extends BaseTestCase
         $entity->moveTo(0, 15);
         $parent = $entity->getParent();
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Models\Entity', $parent);
+        $this->assertInstanceOf('Soda\ClosureTable\Models\Entity', $parent);
         $this->assertEquals(15, $parent->getKey());
     }
 
@@ -245,7 +246,7 @@ class EntityTestCase extends BaseTestCase
         $entity = Entity::find(12);
         $ancestors = $entity->getAncestors();
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Extensions\Collection', $ancestors);
+        $this->assertInstanceOf('Soda\ClosureTable\Extensions\Collection', $ancestors);
         $this->assertCount(3, $ancestors);
         $this->assertArrayValuesEquals($ancestors->modelKeys(), [9, 10, 11]);
     }
@@ -255,7 +256,7 @@ class EntityTestCase extends BaseTestCase
         $entity = Entity::find(12);
         $ancestors = $entity->getAncestorsWhere('excerpt', '=', '');
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Extensions\Collection', $ancestors);
+        $this->assertInstanceOf('Soda\ClosureTable\Extensions\Collection', $ancestors);
         $this->assertCount(0, $ancestors);
 
         $ancestors = $entity->getAncestorsWhere($this->entity->getPositionColumn(), '=', 0);
@@ -284,7 +285,7 @@ class EntityTestCase extends BaseTestCase
         $entity = Entity::find(9);
         $descendants = $entity->getDescendants();
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Extensions\Collection', $descendants);
+        $this->assertInstanceOf('Soda\ClosureTable\Extensions\Collection', $descendants);
         $this->assertCount(6, $descendants);
         $this->assertArrayValuesEquals($descendants->modelKeys(), [10, 11, 12, 13, 14, 15]);
     }
@@ -319,7 +320,7 @@ class EntityTestCase extends BaseTestCase
         $entity = Entity::find(9);
         $children = $entity->getChildren();
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Extensions\Collection', $children);
+        $this->assertInstanceOf('Soda\ClosureTable\Extensions\Collection', $children);
         $this->assertCount(4, $children);
         $this->assertArrayValuesEquals($children->modelKeys(), [10, 13, 14, 15]);
     }
@@ -337,7 +338,7 @@ class EntityTestCase extends BaseTestCase
         $entity = Entity::find(9);
         $child = $entity->getChildAt(2);
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Models\Entity', $child);
+        $this->assertInstanceOf('Soda\ClosureTable\Models\Entity', $child);
         $this->assertEquals(2, $child->position);
     }
 
@@ -346,7 +347,7 @@ class EntityTestCase extends BaseTestCase
         $entity = Entity::find(9);
         $child = $entity->getFirstChild();
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Models\Entity', $child);
+        $this->assertInstanceOf('Soda\ClosureTable\Models\Entity', $child);
         $this->assertEquals(0, $child->position);
     }
 
@@ -355,7 +356,7 @@ class EntityTestCase extends BaseTestCase
         $entity = Entity::find(9);
         $child = $entity->getLastChild();
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Models\Entity', $child);
+        $this->assertInstanceOf('Soda\ClosureTable\Models\Entity', $child);
         $this->assertEquals(3, $child->position);
     }
 
@@ -364,7 +365,7 @@ class EntityTestCase extends BaseTestCase
         $entity = Entity::find(9);
         $children = $entity->getChildrenRange(0, 2);
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Extensions\Collection', $children);
+        $this->assertInstanceOf('Soda\ClosureTable\Extensions\Collection', $children);
         $this->assertCount(3, $children);
         $this->assertEquals(0, $children[0]->position);
         $this->assertEquals(1, $children[1]->position);
@@ -440,7 +441,7 @@ class EntityTestCase extends BaseTestCase
         $entity = Entity::find(9);
         $entity->removeChildren(1);
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Models\Entity', $entity->getFirstChild());
+        $this->assertInstanceOf('Soda\ClosureTable\Models\Entity', $entity->getFirstChild());
         $this->assertEquals(1, $entity->countChildren());
     }
 
@@ -449,7 +450,7 @@ class EntityTestCase extends BaseTestCase
         $entity = Entity::find(13);
         $siblings = $entity->getSiblings();
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Extensions\Collection', $siblings);
+        $this->assertInstanceOf('Soda\ClosureTable\Extensions\Collection', $siblings);
         $this->assertCount(3, $siblings);
         $this->assertEquals(10, $siblings[0]->getKey());
         $this->assertEquals(14, $siblings[1]->getKey());
@@ -597,7 +598,7 @@ class EntityTestCase extends BaseTestCase
 
         $sibling = $entity->getNextSibling();
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Models\Entity', $sibling);
+        $this->assertInstanceOf('Soda\ClosureTable\Models\Entity', $sibling);
         $this->assertEquals(4, $sibling->position);
     }
 
@@ -657,7 +658,7 @@ class EntityTestCase extends BaseTestCase
     {
         $tree = Entity::getTreeWhere($this->entity->getPositionColumn(), '>=', 1, [
             $this->entity->getKeyName(),
-            $this->entity->getPositionColumn()
+            $this->entity->getPositionColumn(),
         ]);
 
         $this->assertCount(8, $tree);
@@ -730,31 +731,31 @@ class EntityTestCase extends BaseTestCase
     {
         $array = [
             [
-                'id' => 90,
-                'title' => 'About',
+                'id'       => 90,
+                'title'    => 'About',
                 'position' => 0,
                 'children' => [
                     [
-                        'id' => 93,
-                        'title' => 'Testimonials'
-                    ]
-                ]
+                        'id'    => 93,
+                        'title' => 'Testimonials',
+                    ],
+                ],
             ],
             [
-                'id' => 91,
-                'title' => 'Blog',
-                'position' => 1
+                'id'       => 91,
+                'title'    => 'Blog',
+                'position' => 1,
             ],
             [
-                'id' => 92,
-                'title' => 'Portfolio',
-                'position' => 2
+                'id'       => 92,
+                'title'    => 'Portfolio',
+                'position' => 2,
             ],
         ];
 
         $pages = Page::createFromArray($array);
 
-        $this->assertInstanceOf('Franzose\ClosureTable\Extensions\Collection', $pages);
+        $this->assertInstanceOf('Soda\ClosureTable\Extensions\Collection', $pages);
         $this->assertCount(3, $pages);
 
         $pageZero = $pages[0];
@@ -771,10 +772,10 @@ class EntityTestCase extends BaseTestCase
     {
         $array = [
             [
-                'title' => 'About',
+                'title'    => 'About',
                 'children' => [
                     [
-                        'title' => 'Testimonials',
+                        'title'    => 'Testimonials',
                         'children' => [
                             [
                                 'title' => 'child 1',
@@ -782,9 +783,9 @@ class EntityTestCase extends BaseTestCase
                             [
                                 'title' => 'child 2',
                             ],
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ],
             [
                 'title' => 'Blog',

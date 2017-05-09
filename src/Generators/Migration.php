@@ -1,13 +1,12 @@
 <?php
-namespace Franzose\ClosureTable\Generators;
+
+namespace Soda\ClosureTable\Generators;
 
 use Carbon\Carbon;
-use Franzose\ClosureTable\Extensions\Str as ExtStr;
+use Soda\ClosureTable\Extensions\Str as ExtStr;
 
 /**
  * ClosureTable specific migrations generator class.
- *
- * @package Franzose\ClosureTable\Generators
  */
 class Migration extends Generator
 {
@@ -32,20 +31,20 @@ class Migration extends Generator
         $stubPrefix = $useInnoDB ? '-innodb' : '';
 
         $paths[] = $path = $this->getPath($options['entity-table'], $options['migrations-path']);
-        $stub = $this->getStub('entity' . $stubPrefix, 'migrations');
+        $stub = $this->getStub('entity'.$stubPrefix, 'migrations');
 
         $this->filesystem->put($path, $this->parseStub($stub, [
             'entity_table' => $options['entity-table'],
-            'entity_class' => $entityClass
+            'entity_class' => $entityClass,
         ]));
 
         $paths[] = $path = $this->getPath($options['closure-table'], $options['migrations-path']);
-        $stub = $this->getStub('closuretable' . $stubPrefix, 'migrations');
+        $stub = $this->getStub('closuretable'.$stubPrefix, 'migrations');
 
         $this->filesystem->put($path, $this->parseStub($stub, [
             'closure_table' => $options['closure-table'],
             'closure_class' => $closureClass,
-            'entity_table' => $options['entity-table']
+            'entity_table'  => $options['entity-table'],
         ]));
 
         return $paths;
@@ -59,7 +58,7 @@ class Migration extends Generator
      */
     protected function getName($name)
     {
-        return 'create_' . ExtStr::tableize($name) . '_table';
+        return 'create_'.ExtStr::tableize($name).'_table';
     }
 
     /**
@@ -89,6 +88,6 @@ class Migration extends Generator
         }
         $this->usedTimestamps[] = $timestamp;
 
-        return $path . '/' . $timestamp->format('Y_m_d_His') . '_' . $this->getName($name) . '.php';
+        return $path.'/'.$timestamp->format('Y_m_d_His').'_'.$this->getName($name).'.php';
     }
 }

@@ -1,12 +1,11 @@
 <?php
-namespace Franzose\ClosureTable\Generators;
 
-use Franzose\ClosureTable\Extensions\Str as ExtStr;
+namespace Soda\ClosureTable\Generators;
+
+use Soda\ClosureTable\Extensions\Str as ExtStr;
 
 /**
  * ClosureTable specific models generator class.
- *
- * @package Franzose\ClosureTable\Generators
  */
 class Model extends Generator
 {
@@ -20,33 +19,33 @@ class Model extends Generator
     {
         $paths = [];
 
-        $nsplaceholder = (!empty($options['namespace']) ? "namespace " . $options['namespace'] . ";" : '');
+        $nsplaceholder = (! empty($options['namespace']) ? 'namespace '.$options['namespace'].';' : '');
 
-        $closureInterface = $options['closure'] . 'Interface';
+        $closureInterface = $options['closure'].'Interface';
         $qualifiedEntityName = $options['entity'];
-        $qualifiedEntityInterfaceName = $qualifiedEntityName . 'Interface';
+        $qualifiedEntityInterfaceName = $qualifiedEntityName.'Interface';
         $qualifiedClosureName = $options['closure'];
-        $qualifiedClosureInterfaceName = $qualifiedClosureName . 'Interface';
+        $qualifiedClosureInterfaceName = $qualifiedClosureName.'Interface';
 
         // First, we make entity classes
         $paths[] = $path = $this->getPath($qualifiedEntityName, $options['models-path']);
         $stub = $this->getStub('entity', 'models');
 
         $this->filesystem->put($path, $this->parseStub($stub, [
-            'namespace' => $nsplaceholder,
-            'entity_class' => $options['entity'],
-            'entity_table' => $options['entity-table'],
-            'closure_class' => $options['namespace'] . '\\' . $options['closure'],
+            'namespace'           => $nsplaceholder,
+            'entity_class'        => $options['entity'],
+            'entity_table'        => $options['entity-table'],
+            'closure_class'       => $options['namespace'].'\\'.$options['closure'],
             'closure_class_short' => $options['closure'],
-            'closure_interface' => $closureInterface
+            'closure_interface'   => $closureInterface,
         ]));
 
         $paths[] = $path = $this->getPath($qualifiedEntityInterfaceName, $options['models-path']);
         $stub = $this->getStub('entityinterface', 'models');
 
         $this->filesystem->put($path, $this->parseStub($stub, [
-            'namespace' => $nsplaceholder,
-            'entity_class' => $options['entity']
+            'namespace'    => $nsplaceholder,
+            'entity_class' => $options['entity'],
         ]));
 
         // Second, we make closure classes
@@ -54,18 +53,17 @@ class Model extends Generator
         $stub = $this->getStub('closuretable', 'models');
 
         $this->filesystem->put($path, $this->parseStub($stub, [
-            'namespace' => $nsplaceholder,
+            'namespace'     => $nsplaceholder,
             'closure_class' => $options['closure'],
-            'closure_table' => $options['closure-table']
+            'closure_table' => $options['closure-table'],
         ]));
-
 
         $paths[] = $path = $this->getPath($qualifiedClosureInterfaceName, $options['models-path']);
         $stub = $this->getStub('closuretableinterface', 'models');
 
         $this->filesystem->put($path, $this->parseStub($stub, [
-            'namespace' => $nsplaceholder,
-            'closure_class' => $options['closure']
+            'namespace'     => $nsplaceholder,
+            'closure_class' => $options['closure'],
         ]));
 
         return $paths;
@@ -80,6 +78,6 @@ class Model extends Generator
      */
     protected function getPath($name, $path)
     {
-        return $path . '/' . ExtStr::classify($name) . '.php';
+        return $path.'/'.ExtStr::classify($name).'.php';
     }
 }

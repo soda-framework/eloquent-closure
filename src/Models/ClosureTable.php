@@ -1,9 +1,10 @@
 <?php
-namespace Franzose\ClosureTable\Models;
+
+namespace Soda\ClosureTable\Models;
 
 use DB;
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Franzose\ClosureTable\Contracts\ClosureTableInterface;
+use Soda\ClosureTable\Contracts\ClosureTableInterface;
 
 /**
  * Basic ClosureTable model. Performs actions on the relationships table.
@@ -11,8 +12,6 @@ use Franzose\ClosureTable\Contracts\ClosureTableInterface;
  * @property int ancestor Alias for the ancestor attribute name
  * @property int descendant Alias for the descendant attribute name
  * @property int depth Alias for the depth attribute name
- *
- * @package Franzose\ClosureTable
  */
 class ClosureTable extends Eloquent implements ClosureTableInterface
 {
@@ -82,7 +81,7 @@ class ClosureTable extends Eloquent implements ClosureTableInterface
         $thisDescendantId = $this->descendant;
 
         // Prevent constraint collision
-        if (!is_null($ancestorId) && $thisAncestorId === $ancestorId) {
+        if (! is_null($ancestorId) && $thisAncestorId === $ancestorId) {
             return;
         }
 
@@ -146,7 +145,7 @@ class ClosureTable extends Eloquent implements ClosureTableInterface
      */
     public function getPrefixedTable()
     {
-        return DB::connection($this->connection)->getTablePrefix() . $this->getTable();
+        return DB::connection($this->connection)->getTablePrefix().$this->getTable();
     }
 
     /**
@@ -176,7 +175,7 @@ class ClosureTable extends Eloquent implements ClosureTableInterface
      */
     public function getQualifiedAncestorColumn()
     {
-        return $this->getTable() . '.' . $this->getAncestorColumn();
+        return $this->getTable().'.'.$this->getAncestorColumn();
     }
 
     /**
@@ -216,7 +215,7 @@ class ClosureTable extends Eloquent implements ClosureTableInterface
      */
     public function getQualifiedDescendantColumn()
     {
-        return $this->getTable() . '.' . $this->getDescendantColumn();
+        return $this->getTable().'.'.$this->getDescendantColumn();
     }
 
     /**
@@ -256,7 +255,7 @@ class ClosureTable extends Eloquent implements ClosureTableInterface
      */
     public function getQualifiedDepthColumn()
     {
-        return $this->getTable() . '.' . $this->getDepthColumn();
+        return $this->getTable().'.'.$this->getDepthColumn();
     }
 
     /**

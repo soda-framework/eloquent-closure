@@ -1,12 +1,11 @@
 <?php
-namespace Franzose\ClosureTable\Extensions;
+
+namespace Soda\ClosureTable\Extensions;
 
 use Illuminate\Support\Str as BaseStr;
 
 /**
  * Extension of the base Str class.
- *
- * @package Franzose\ClosureTable\Extensions
  */
 class Str extends BaseStr
 {

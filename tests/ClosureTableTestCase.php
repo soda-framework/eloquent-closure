@@ -1,7 +1,8 @@
 <?php
-namespace Franzose\ClosureTable\Tests;
 
-use Franzose\ClosureTable\Models\ClosureTable;
+namespace Soda\ClosureTable\Tests;
+
+use Soda\ClosureTable\Models\ClosureTable;
 
 class ClosureTableTestCase extends BaseTestCase
 {
@@ -63,16 +64,16 @@ class ClosureTableTestCase extends BaseTestCase
 
     public function testAncestorQualifiedKeyName()
     {
-        $this->assertEquals($this->ctable->getTable() . '.' . $this->ancestorColumn, $this->ctable->getQualifiedAncestorColumn());
+        $this->assertEquals($this->ctable->getTable().'.'.$this->ancestorColumn, $this->ctable->getQualifiedAncestorColumn());
     }
 
     public function testDescendantQualifiedKeyName()
     {
-        $this->assertEquals($this->ctable->getTable() . '.' . $this->descendantColumn, $this->ctable->getQualifiedDescendantColumn());
+        $this->assertEquals($this->ctable->getTable().'.'.$this->descendantColumn, $this->ctable->getQualifiedDescendantColumn());
     }
 
     public function testDepthQualifiedKeyName()
     {
-        $this->assertEquals($this->ctable->getTable() . '.' . $this->depthColumn, $this->ctable->getQualifiedDepthColumn());
+        $this->assertEquals($this->ctable->getTable().'.'.$this->depthColumn, $this->ctable->getQualifiedDepthColumn());
     }
 }

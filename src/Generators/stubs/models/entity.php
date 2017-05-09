@@ -1,7 +1,7 @@
 <?php
 {{namespace}}
 
-use Franzose\ClosureTable\Models\Entity;
+use Soda\ClosureTable\Models\Entity;
 
 class {{entity_class}} extends Entity implements {{entity_class}}Interface
 {

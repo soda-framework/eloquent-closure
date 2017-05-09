@@ -1,10 +1,9 @@
 <?php
-namespace Franzose\ClosureTable\Contracts;
+
+namespace Soda\ClosureTable\Contracts;
 
 /**
  * Basic ClosureTable model interface.
- *
- * @package Franzose\ClosureTable
  */
 interface ClosureTableInterface
 {
